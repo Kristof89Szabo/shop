@@ -1,0 +1,30 @@
+micronaut:
+  application:
+    name: learningProject
+datasources:
+  default:
+    url: jdbc:mysql://localhost:3306/minishop?createDatabaseIfNotExist=true&characterEncoding=UTF-8
+    #Dockerizalasnal a localhostot csereljuk ki erre: mysqldb  Ez a docker-compose filebol jon.
+    username: root
+    password: test1234
+    dialect: MYSQL
+    driverClassName: com.mysql.cj.jdbc.Driver
+    schema-generate: none
+endpoints:
+  flyway:
+    enabled: true
+    sensitive: false
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: none
+        show_sql: true
+flyway:
+  datasources:
+    default:
+      enabled: true
+      clean-schema: false
+      locations: classpath:db/migration
+

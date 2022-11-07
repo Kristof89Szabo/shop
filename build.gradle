@@ -1,0 +1,67 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.6.2"
+}
+
+version = "0.1"
+group = "com.tesco"
+
+repositories {
+    dependencies {
+        annotationProcessor("io.micronaut:micronaut-http-validation")
+        compileOnly('org.projectlombok:lombok:1.18.24')
+        annotationProcessor('org.projectlombok:lombok:1.18.24')
+
+        annotationProcessor('io.micronaut:micronaut-inject-java:3.2.7')
+
+        implementation("io.micronaut:micronaut-http-client")
+        implementation("io.micronaut:micronaut-jackson-databind")
+        implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+
+
+        implementation("io.micronaut.flyway:micronaut-flyway")
+        implementation("org.flywaydb:flyway-mysql:8.5.13")
+
+        implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+        runtimeOnly("io.micronaut.sql:micronaut-jdbc-hikari")
+
+        implementation("jakarta.annotation:jakarta.annotation-api")
+
+        implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+        annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+
+        implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+        runtimeOnly("mysql:mysql-connector-java")
+
+        runtimeOnly("ch.qos.logback:logback-classic")
+        runtimeOnly("com.h2database:h2")
+        implementation("io.micronaut:micronaut-validation")
+
+        implementation 'io.micronaut:micronaut-inject:3.6.3'
+
+        testCompileOnly 'org.projectlombok:lombok:1.18.24'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    }
+    mavenCentral()
+}
+
+
+application {
+    mainClass.set("com.tesco.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
+}
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("com.tesco.*")
+    }
+}
+

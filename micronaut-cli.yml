@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.grad
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [annotation-api, app-name, gradle, h2, hibernate-jpa, http-client, jackson-databind, java, java-application, jdbc-hikari, junit, logback, micronaut-build, netty-server, readme, shade, yaml]

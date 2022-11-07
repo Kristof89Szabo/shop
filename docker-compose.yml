@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  lp-backend:
+    depends_on:
+      - mysqldb
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    container_name: micronaut-la
+  mysqldb:
+    platform: linux/x86_64
+    image: "mysql:latest"
+    volumes:
+      - /Users/HU900850/Desktop/docker-db:/var/lib/mysql
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: minishop
+      # A user es a password akkor kell, ha nem root-tal akarunk dolgozni.
+#      MYSQL_USER: testuser
+#      MYSQL_PASSWORD: testuser
+      MYSQL_ROOT_PASSWORD: test1234
+    container_name: micronaut-learning-database
