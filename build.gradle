@@ -4,7 +4,7 @@ plugins {
 }
 
 version = "0.1"
-group = "com.tesco"
+group = "com.grad"
 
 repositories {
     dependencies {
@@ -48,7 +48,7 @@ repositories {
 
 
 application {
-    mainClass.set("com.tesco.Application")
+    mainClass.set("com.grad.Application")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
@@ -61,7 +61,7 @@ micronaut {
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("com.tesco.*")
+        annotations("com.grad.*")
     }
 }
 

@@ -14,6 +14,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByName(String name);
 
 
-    @Query("SELECT p FROM Products as p")
+    @Query("SELECT entity as e FROM products as p")
     List<Product> fetchOrders();
 }

@@ -4,7 +4,8 @@ services:
     depends_on:
       - mysqldb
     build: .
-    restart: always
+#    restart: always
+    restart: on-failure
     ports:
       - "8080:8080"
     container_name: micronaut-la
