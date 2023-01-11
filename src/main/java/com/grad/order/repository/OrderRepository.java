@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query("select o from Orders as o")
+    @Query("select o from Order as o")
     List<Order> getAllOrders();
 }

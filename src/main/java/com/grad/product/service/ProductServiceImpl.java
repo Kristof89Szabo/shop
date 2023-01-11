@@ -36,8 +36,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> fetchOrders() {
-        return productRepository.fetchOrders().stream()
+    public List<ProductDto> fetchProducts() {
+        return productRepository.fetchProducts().stream()
                 .map(mapper::toProductDto)
                 .collect(Collectors.toList());
     }

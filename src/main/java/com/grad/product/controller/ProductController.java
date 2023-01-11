@@ -45,8 +45,8 @@ public class ProductController {
     }
 
     @Get
-    public HttpResponse<List<ProductDto>> fetchAllOrders(){
-        return HttpResponse.ok(productService.fetchOrders());
+    public HttpResponse<List<ProductDto>> fetchAllProducts(){
+        return HttpResponse.ok(productService.fetchProducts());
     }
 
 }

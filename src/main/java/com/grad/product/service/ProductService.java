@@ -10,5 +10,5 @@ public interface ProductService {
     ProductDto createProduct(ProductDto productDto);
     Optional<ProductDto> fetchProduct(String id);
 
-    List<ProductDto> fetchOrders();
+    List<ProductDto> fetchProducts();
 }
