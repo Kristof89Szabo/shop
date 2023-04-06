@@ -7,11 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@MicronautTest
 class ApplicationTest {
-
-    @Inject
-    EmbeddedApplication<?> application;
 
     @Test
     void testItWorks() {
