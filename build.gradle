@@ -65,3 +65,9 @@ micronaut {
     }
 }
 
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
