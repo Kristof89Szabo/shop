@@ -1,0 +1,31 @@
+# Ignore build artifacts and directories
+build/
+out/
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore dependency directories
+.gradle/
+.micronaut/
+
+# Ignore IDE-specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Ignore logs and cache directories
+logs/
+cache/
+temp/
+*.log
+
+# Ignore Git-related files and directories
+.git/
+.gitignore
+.gitattributes
+
+# Ignore GitHub Actions workflow files
+.github/workflows/
