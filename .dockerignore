@@ -1,8 +1,8 @@
 # Ignore build artifacts and directories
-build/
+# build/
+# *.jar
 out/
 *.class
-*.jar
 *.war
 *.ear
 
