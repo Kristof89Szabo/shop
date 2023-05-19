@@ -3,8 +3,7 @@ micronaut:
     name: learningProject
 datasources:
   default:
-    url: jdbc:mysql://localhost:3306/minishop?createDatabaseIfNotExist=true&characterEncoding=UTF-8
-    #Dockerizalasnal a localhostot csereljuk ki erre: mysqldb  Ez a docker-compose filebol jon.
+    url: ${MYSQL_URL}/minishop?createDatabaseIfNotExist=true&characterEncoding=UTF-8
     username: root
     password: test1234
     dialect: MYSQL
