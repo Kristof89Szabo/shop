@@ -35,6 +35,10 @@ jobs:
           name: build-reports
           path: build/reports/
 
+      - name: Preserve JAR file
+        run: mv build/libs/*.jar app.jar
+
+
   build-docker:
     needs: build-gradle
     runs-on: ubuntu-latest
@@ -50,12 +54,6 @@ jobs:
         id: generate-tag
         run: echo "::set-output name=tag::$(date +'%Y%m%d%H%M%S')"
 
-      - name: Build JAR
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-        with:
-          arguments: build
-
-
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
@@ -66,3 +64,4 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: ${{ needs.build-gradle.outputs.tag }}
+          args: --build-arg JAR_FILE=app.jar
