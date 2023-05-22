@@ -8,8 +8,8 @@ micronaut:
 datasources:
   default:
     url: ${MYSQL_URL}/minishop?createDatabaseIfNotExist=true&characterEncoding=UTF-8
-    username: root
-    password: test1234
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     dialect: MYSQL
     driverClassName: com.mysql.cj.jdbc.Driver
     schema-generate: none
