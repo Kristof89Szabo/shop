@@ -50,9 +50,14 @@ jobs:
         id: generate-tag
         run: echo "::set-output name=tag::$(date +'%Y%m%d%H%M%S')"
 
+      - name: Copy JAR file
+        run: cp build/libs/*.jar app.jar
+
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
+          context: .
+          dockerfile: Dockerfile
           image: kakuckaku/shop-app
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
