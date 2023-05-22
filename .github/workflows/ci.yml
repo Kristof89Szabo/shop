@@ -51,7 +51,7 @@ jobs:
         run: echo "::set-output name=tag::$(date +'%Y%m%d%H%M%S')"
 
       - name: Copy JAR file
-        run: cp build/libs/*.jar app.jar
+        run: cp build/libs/learning-project-0.1.jar learning-project-0.1.jar
 
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
