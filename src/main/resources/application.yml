@@ -1,6 +1,10 @@
 micronaut:
   application:
     name: learningProject
+  http:
+    server:
+      cors:
+        enabled: true
 datasources:
   default:
     url: ${MYSQL_URL}/minishop?createDatabaseIfNotExist=true&characterEncoding=UTF-8
