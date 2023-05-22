@@ -49,4 +49,4 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: ${{ github.sha }}, ${{ steps.generate-tag.outputs.tag }}
+          tags: ${{ steps.generate-tag.outputs.tag }}
