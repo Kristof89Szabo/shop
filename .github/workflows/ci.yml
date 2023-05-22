@@ -35,18 +35,6 @@ jobs:
           name: build-reports
           path: build/reports/
 
-      - name: Preserve JAR file
-        run: mv build/libs/*.jar app.jar
-
-
-  build-docker:
-    needs: build-gradle
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Set up Docker
         uses: docker/setup-buildx-action@v1
 
@@ -57,11 +45,8 @@ jobs:
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          context: .
-          dockerfile: Dockerfile
           image: kakuckaku/shop-app
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: ${{ needs.build-gradle.outputs.tag }}
-          args: --build-arg JAR_FILE=app.jar
+          tags: ${{ steps.generate-tag.outputs.tag }}
