@@ -36,7 +36,7 @@ jobs:
           path: build/reports/
 
       - name: Set up Docker
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Generate Docker tag
         id: generate-tag
