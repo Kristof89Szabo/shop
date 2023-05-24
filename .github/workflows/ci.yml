@@ -38,9 +38,23 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
-      - name: Generate Docker tag
-        id: generate-tag
-        run: echo "::set-output name=tag::$(date +'%Y%m%d%H%M%S')"
+#      - name: Generate Docker tag
+#        id: generate-tag
+#        run: echo "::set-output name=tag::$(date +'%Y%m%d%H%M%S')"
+
+      - name: Docker meta
+        id: docker_meta
+        uses: docker/metadata-action@v4
+        with:
+          images: bretfisher/docker-ci-automation
+          flavor: |
+            latest=false
+          tags: |
+            type=raw,value=04
+            type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
+            type=ref,event=pr
+            type=ref,event=branch
+            type=semver,pattern={{version}}
 
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
@@ -49,4 +63,5 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: ${{ steps.generate-tag.outputs.tag }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
