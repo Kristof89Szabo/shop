@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config-map
+data:
+  mysql-server: mysql-service
+  mysql-database-name: minishop
+  mysql-user-username: root

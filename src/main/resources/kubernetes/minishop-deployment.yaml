@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minishop-deployment
+# namespace: We can add a namespace if we dont want to create to the default.
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minishop
+  template:
+    metadata:
+      labels:
+        app: minishop
+    spec:
+      containers:
+        - name: minishop
+          image: kakuckaku/shop-app:20230523111105
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+          - name: MICRONAUT_DATASOURCES_DEFAULT_USERNAME
+            value: root
+
+          - name: DB_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config-map
+                key: mysql-user-username
+
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-pass
+                key: mysql-user-password
+
+          - name: MYSQL_URL
+            value: jdbc:mysql://mysql-service:3306/minishop?createDatabaseIfNotExist=true&characterEncoding=UTF-8
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minishop-service
+  labels:
+    app: minishop
+spec:
+  type: LoadBalancer
+  selector:
+    app: minishop
+  ports:
+    - protocol: TCP
+      name: http
+      port: 8080
+      targetPort: 8080
+      nodePort: 30000
