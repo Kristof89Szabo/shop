@@ -15,7 +15,7 @@ services:
     platform: linux/x86_64
     image: "mysql:latest"
     volumes:
-      - /Users/HU900850/Desktop/docker-db:/var/lib/mysql
+      - ~/Desktop/docker-db:/var/lib/mysql
     restart: always
     ports:
       - "3307:3306"
