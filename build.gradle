@@ -55,6 +55,12 @@ java {
     targetCompatibility = JavaVersion.toVersion("11")
 }
 
+
+jar {
+    // Change the output directory for the JAR file
+    destinationDirectory = file('jarbuild')
+}
+
 graalvmNative.toolchainDetection = false
 micronaut {
     runtime("netty")
