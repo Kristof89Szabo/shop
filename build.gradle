@@ -56,10 +56,11 @@ java {
 }
 
 
-jar {
-    // Change the output directory for the JAR file
+shadowJar {
     destinationDirectory = file('jarbuild')
 }
+
+jar.finalizedBy(shadowJar)
 
 graalvmNative.toolchainDetection = false
 micronaut {
