@@ -35,10 +35,10 @@ jobs:
           name: build-reports
           path: build/reports/
 
-      - name: Move JAR to jarbuild directory
-        run: |
-          mkdir -p jarbuild
-          cp build/libs/learning-project-0.1-all.jar jarbuild/
+#      - name: Move JAR to jarbuild directory
+#        run: |
+#          mkdir -p jarbuild
+#          cp build/libs/learning-project-0.1-all.jar jarbuild/
 
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
