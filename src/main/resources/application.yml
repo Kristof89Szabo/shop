@@ -7,7 +7,7 @@ micronaut:
         enabled: true
 datasources:
   default:
-    url: ${MYSQL_URL}/minishop?createDatabaseIfNotExist=true&characterEncoding=UTF-8
+    url: jdbc:mysql://${MYSQL_URL}:${MYSQL_PORT:3306}/${MYSQL_DBNAME}?createDatabaseIfNotExist=true&characterEncoding=UTF-8
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     dialect: MYSQL

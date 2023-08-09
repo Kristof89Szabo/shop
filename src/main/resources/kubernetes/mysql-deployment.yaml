@@ -6,9 +6,9 @@ metadata:
     app: learning-app-mysql
 spec:
   ports:
-    - port: 3306 # The Service will listen on.
+  - port: 3306 # The Service will listen on.
   selector:
-    app: learning-app-mysql
+    app: learning-app-mysql # Service will connect to the POD throw selector label.
     tier: mysql
 ---
 apiVersion: v1
@@ -19,7 +19,7 @@ metadata:
     app: learning-app-mysql
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
@@ -31,21 +31,25 @@ metadata:
   labels:
     app: learning-app-mysql
 spec:
+  replicas: 1
   selector:
-    matchLabels:	# Deployment will manage ReplicaSets with Pods that have both labels matching.
+    matchLabels: # Deployment will manage ReplicaSets with Pods that have both labels matching.
       app: learning-app-mysql
       tier: mysql
   strategy:
-    type: Recreate	# Pods will be terminated before new Pods are created during a deployment update.
-  template:		# Template for creating Pods managed by the Deployment.
-    metadata:		
+    type: Recreate    # Pods will be terminated before new Pods are created during a deployment update.
+  template: # Template for creating Pods managed by the Deployment.
+    metadata:
       labels:
         app: learning-app-mysql
         tier: mysql
     spec:
       containers:
-      - image: mysql:latest
-        name: mysql
+      - name: mysql
+        image: mysql:latest
+        ports:
+        - name: mysql
+          containerPort: 3306    # Defines the ports that the container exposes
         env:
         - name: MYSQL_DATABASE
           valueFrom:
@@ -62,16 +66,13 @@ spec:
             secretKeyRef:
               name: mysql-pass
               key: mysql-user-password
-        livenessProbe:		# Check pod health on the given port
+        livenessProbe: # Check pod health on the given port
           tcpSocket:
             port: 3306
-        ports:
-        - containerPort: 3306	# Defines the ports that the container exposes
-          name: mysql
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
-      volumes:			# Claims volume from PersistentVolumeClaim yml.
+      volumes: # Claims volume from PersistentVolumeClaim.
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pvc

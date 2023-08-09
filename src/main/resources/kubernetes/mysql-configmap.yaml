@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: mysql-config-map
 data:
-  mysql-server: mysql-service
-  mysql-database-name: minishop
-  mysql-user-username: root
+  mysql-server: "mysql-service"
+  mysql-database-port: "3306"
+  mysql-database-name: "minishop"
+  mysql-user-username: "root"

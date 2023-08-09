@@ -2,9 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: minishop-deployment
+  labels:
+    app: minishop
 # namespace: We can add a namespace if we dont want to create to the default.
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: minishop
@@ -14,30 +16,41 @@ spec:
         app: minishop
     spec:
       containers:
-        - name: minishop
-          image: kakuckaku/shop-app:20230523111105
-          ports:
-            - name: http
-              containerPort: 8080
-          env:
-          - name: MICRONAUT_DATASOURCES_DEFAULT_USERNAME
-            value: root
+      - name: minishop
+        image: kakuckaku/shop-app:20230523111105
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: MICRONAUT_DATASOURCES_DEFAULT_USERNAME
+          value: root
 
-          - name: DB_USERNAME
-            valueFrom:
-              configMapKeyRef:
-                name: mysql-config-map
-                key: mysql-user-username
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config-map
+              key: mysql-user-username
 
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysql-pass
-                key: mysql-user-password
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: mysql-user-password
 
-          - name: MYSQL_URL
-            value: jdbc:mysql://mysql-service:3306/minishop?createDatabaseIfNotExist=true&characterEncoding=UTF-8
+        - name: MYSQL_URL
+          value: mysql-service
 
+        - name: MYSQL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config-map
+              key: mysql-database-port
+
+        - name: MYSQL_DBNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config-map
+              key: mysql-database-name
 ---
 apiVersion: v1
 kind: Service
@@ -48,10 +61,10 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: minishop
+    app: minishop # Has to match deployment metadata labels and spec/template/metadata.
   ports:
-    - protocol: TCP
-      name: http
-      port: 8080
-      targetPort: 8080
-      nodePort: 30000
+  - protocol: TCP
+    name: http
+    port: 8080
+    targetPort: 8080 # This should match container(pod) port
+    nodePort: 30000
