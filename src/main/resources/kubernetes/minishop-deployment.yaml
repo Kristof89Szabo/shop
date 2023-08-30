@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: minishop
-        image: kakuckaku/shop-app:20230523111105
+        image: kakuckaku/shop-app:20230809114845
         ports:
         - name: http
           containerPort: 8080
