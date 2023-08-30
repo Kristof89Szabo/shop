@@ -9,9 +9,10 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - MYSQL_URL=jdbc:mysql://mysqldb:3306/minishop
+      - MYSQL_URL=mysqldb
       - DB_USERNAME=root
       - DB_PASSWORD=test1234
+      - MYSQL_DBNAME=minishop
     container_name: micronaut-la
   mysqldb:
     platform: linux/x86_64
